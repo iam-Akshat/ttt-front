@@ -1,5 +1,5 @@
 const validateInput = (input) =>{
-    const reg = new RegExp('^[1-9,]*$')
+    const reg = new RegExp('^[0-9,]*$')
     if(reg.test(input)){
         return true
     }
