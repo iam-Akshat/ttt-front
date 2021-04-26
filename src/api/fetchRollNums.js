@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { BASE_URL } from "../config/constants";
 const fetchRollNums = async (data) => {
-    const res = await axios.get('/api/rollnums',{
+    const res = await axios.get(`${BASE_URL}/api/rollnums`,{
         params:{
             'rollnums':data
         }
