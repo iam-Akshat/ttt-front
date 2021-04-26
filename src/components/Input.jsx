@@ -30,13 +30,14 @@ const Input = () => {
         setSendData(true)
     }
     return (<>
-        <div>
+        <div className="container mb-3">
+        <h1 className="txt-center"> Enter the numbers </h1>
             <input type="text" value={value} onChange={handleInput} />
             <br />
             <div className="input_error">
                 {showError && 'Only numbers and commas allowed'}
             </div>
-            <button onClick={handleSubmit} disabled={showError || isLoading}>Submit</button>
+            <button  className="btn btn-primary mt-2" onClick={handleSubmit} disabled={showError || isLoading}>Submit</button>
         </div>
         {isSuccess && <Table {...data.data} />}
         {isLoading && 'Loading...'}
