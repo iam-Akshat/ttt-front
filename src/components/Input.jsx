@@ -9,7 +9,7 @@ const Input = () => {
     const [showError, setShowError] = useState(null)
     const [sendData, setSendData] = useState(null)
 
-    const { data, isSuccess, isLoading } = useQuery(['results', value], () => { return fetchRollNums(value) }, {
+    const { data, isSuccess, isLoading, isError } = useQuery(['results', value], () => { return fetchRollNums(value) }, {
         enabled: !!sendData && !showError,
         onSettled: () => {
             setSendData(null)
@@ -31,16 +31,21 @@ const Input = () => {
     }
     return (<>
         <div className="container mb-3">
-        <h1 className="txt-center"> Enter the numbers </h1>
+        <h1 className="txt-center"> Enter the numbers
+         <small className="text-muted"> seperated by commas</small>
+         </h1>
             <input type="text" value={value} onChange={handleInput} />
             <br />
-            <div className="input_error">
+            <div className="text-danger font-weight-bold">
                 {showError && 'Only numbers and commas allowed'}
             </div>
             <button  className="btn btn-primary mt-2" onClick={handleSubmit} disabled={showError || isLoading}>Submit</button>
         </div>
         {isSuccess && <Table {...data.data} />}
         {isLoading && 'Loading...'}
+        <div className="text-danger font-weight-bold">
+            {isError && 'Server Error'}
+        </div>
     </>
     )
 }
