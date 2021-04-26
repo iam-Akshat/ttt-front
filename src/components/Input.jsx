@@ -1,21 +1,14 @@
 import { useState } from 'react'
-import fetchRollNums from '../api/fetchRollNums'
-import { useQuery } from 'react-query'
 import validateInput from '../helpers/validateInput'
 import Table from "./Table"
+import { useFetchResults } from '../queries/useFetchResults'
 
 const Input = () => {
     const [value, setValue] = useState('')
     const [showError, setShowError] = useState(null)
     const [sendData, setSendData] = useState(null)
 
-    const { data, isSuccess, isLoading, isError } = useQuery(['results', value], () => { return fetchRollNums(value) }, {
-        enabled: !!sendData && !showError,
-        onSettled: () => {
-            setSendData(null)
-        },
-        staleTime: 0,
-    })
+    const { data, isSuccess, isLoading, isError } = useFetchResults(value,sendData,setSendData,showError)
 
     const handleInput = (e) => {
         const { value } = e.target
