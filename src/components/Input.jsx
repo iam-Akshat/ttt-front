@@ -1,9 +1,8 @@
-import react, { useState } from 'react'
+import  { useState } from 'react'
 import fetchRollNums from '../api/fetchRollNums'
-import {useQuery ,useQueryClient} from 'react-query'
+import {useQuery } from 'react-query'
 import validateInput from '../helpers/validateInput'
 const Input = () => {
-    // const queryClient = useQueryClient()
     const [value, setValue] = useState('')
     const [showError, setShowError] = useState(null)
     const [sendData,setSendData] = useState(null)
@@ -11,13 +10,13 @@ const Input = () => {
         const { value } = e.target
         setValue(value)
         if (!validateInput(value)) {
-            setShowError('ccc')
+            setShowError(true)
         }else{
             setShowError(null)
         }
     }
     const result = useQuery(['results',value],()=>{return fetchRollNums(value)},{
-        enabled: !!sendData,
+        enabled: !!sendData && !showError,
         onSettled:()=>{
             setSendData(null)
         },
